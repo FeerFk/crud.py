@@ -1,0 +1,70 @@
+{% include 'navbar.html' %}
+
+
+{% for empleado in empleados %}
+    
+<div class="create-container">
+    <div class="form-container">
+        <div class="card-header">
+            <h2>Editar Empleado</h2>
+        </div>
+        <!-- creamos el formulario que enviara la informacion a traves del motodo POST
+        hacia la ruta especificada (storage)-->
+        <form method="post" action="/update" enctype="multipart/form-data" class="form-create">
+            <!--b-card-header-->
+            
+            <!--B-form group-->
+                    
+                        <label class="label" for="txtNombre">Nombre</label>
+                        <input id="txtNombre" class="form-control input-nombre" type="text" name="txtNombre"  value="{{empleado[1]}}" >
+                    
+                        <input type="hidden" value="{{empleado[0]}}" name="txtID" id="txtID">
+                    
+                        <label class="label" for="txtCorreo">Correo</label>
+                        <input id="txtCorreo" class="form-control input-correo" type="text" name="txtCorreo" value="{{empleado[2]}}">
+                    
+
+                        <div class="prueba1">
+                            <div class="izquerda">
+                                <label  class="label" for="txtFoto">Foto anterior:</label>
+                                <div class="card2">
+                                    <img class="img-thumbnail2" width="70" height="70" src="{{url_for('uploads', nombreFoto = empleado[3]) }}" alt="">
+                                </div>
+                            </div>
+                            
+
+                            <div class="derecha">
+                                <label class="label" for="txtFoto"></label>
+                                <div class="customdiv-derecha">
+                                    <input id="txtFoto" class="form-control input-foto2" type="file" name="txtFoto" >
+                                    <div class="customdiv-derecha2">
+                                        <img src="/static/icons-utilities/upload.png" class="upload-img" alt="upload" style="width: 30px; height: 30px;">
+                                        <p id="pImg" class="pImg">Elija o arrastre un nuevo archivo</p>
+                                    </div>
+                            </div>
+                            </div>
+                        
+                        </div>
+
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary" value="Guardar" style="font-family: 'Anek Odia', sans-serif;">
+                        <a class="btn btn-back" href="{{url_for('empleados')}}">Regresar</a>
+                    </div>        
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+    const pImg = document.getElementById("pImg")
+    const txtFoto = document.getElementById("txtFoto")
+
+    txtFoto.addEventListener("change", function(){
+            pImg.innerHTML = txtFoto.value.match( /[\/\\]([\w\d\s\.\-\(\)]+)$/)[1];
+    });
+
+</script>
+
+{% endfor %}
+
+
+{% include 'footer.html' %}

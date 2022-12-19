@@ -1,0 +1,75 @@
+{% include 'navbar.html' %}
+
+<!--recibimos los mensajes atravez de flash-->
+{% with messages = get_flashed_messages() %}
+<!--si hay mensajes, los desglosamos y leemos con el for-->
+{% if messages %}
+    <div class="alert alert-danger" role="alert">
+    {% for message in messages %}
+        {{ message }}
+    {% endfor %}
+    </div>
+{% endif %}
+
+{% endwith %}
+<br>
+<div class="create-container">
+    <div class="form-container">
+        <div class="card-header">
+            <h2>Nuevo Empleado</h2>
+        </div>
+        <!-- creamos el formulario que enviara la informacion a traves del motodo POST
+        hacia la ruta especificada (storage)-->
+        <form method="post" action="/store" enctype="multipart/form-data" class="form-create">
+            <!--b-card-header-->
+            
+            <!--B-form group-->
+                    
+                        <label class="label" for="txtNombre">Nombre</label>
+                        <input id="txtNombre" class="form-control input-nombre" type="text" name="txtNombre" placeholder="Ingresa el nombre" >
+                    
+        
+                    
+                        <label class="label" for="txtCorreo">Correo</label>
+                        <input id="txtCorreo" class="form-control input-correo" type="text" name="txtCorreo" placeholder="Ingresa el correo">
+                    
+        
+
+                        <label class="label" for="txtFoto">Foto</label>
+                        <div class="customdiv">
+                            <input id="txtFoto" class="form-control input-foto" type="file" name="txtFoto" >
+                            <div class="customdiv2">
+                                <img src="/static/icons-utilities/upload.png" class="upload-img" alt="upload" style="width: 30px; height: 30px;">
+                                <p id="pImg" class="pImg">Elija o arrastre un archivo</p>
+                            </div>
+                            
+                            
+                        </div>
+                       
+                    
+                       
+                    
+        
+                   
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary" value="Agregar" style="font-family: 'Anek Odia', sans-serif;">
+                        <a class="btn btn-back" href="{{url_for('empleados')}}">Regresar</a>
+                    </div>        
+        </form>
+    </div>
+</div>
+
+
+
+<!--Script para agregar el nombre del archivo seleccionado-->
+<script type="text/javascript">
+    const pImg = document.getElementById("pImg")
+    const txtFoto = document.getElementById("txtFoto")
+
+    txtFoto.addEventListener("change", function(){
+            pImg.innerHTML = txtFoto.value.match( /[\/\\]([\w\d\s\.\-\(\)]+)$/)[1];
+    });
+
+</script>
+
+{% include 'footer.html' %}

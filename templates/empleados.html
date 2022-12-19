@@ -1,0 +1,58 @@
+<!--para incluir todo lo que esta en el header (jinclude)-->
+{% include 'navbar.html' %}
+
+<br><br><br>
+<div class="empleados">
+    <div class="titulo-empl">
+        <h2 class="title">Lista de Empleados</h2>
+    </div>
+    <div class="div-btn">
+        <a href="{{url_for('create')}}" class="btn btn-primary">Agregar Empleado</a>
+        <a href="{{url_for('index')}}" class="btn btn-back">Regresar</a>
+    </div>
+    <div class="empleados-container">
+        
+        <!--Ocupas la extencion bootstrap snippets (tb-header)para crear la tabla y agregar los elemnetos a consultar -->
+        <table  id="Table2" class="table table-hover">
+            <thead>
+                <tr class="table-active">
+                    <th>Id</th>
+                    <th>Foto</th>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!--jinja2 motor de templates, nos va a permitir recuperar y mostrar informacion e interactuar con el template 
+                    (jfor) nos ayuda a traer la informacion de la tabla segun su indice de posicion -->
+                {% for empleado in empleados %}
+                <tr>
+                    <td>{{empleado[0]}}</td>
+                    <!--para mostrar la foto-->
+                    <td class="table-img">
+                        <div class="card3" id="card3">
+                            <img class="table-img"  width="55px" height="60px"  src="uploads/{{empleado[3]}}" alt="img-profile">
+                        </div>
+                       
+                    </td>
+    
+                    <td>{{empleado[1]}}</td>
+                    <td>{{empleado[2]}}</td>
+                    
+                    <td>
+                       
+                        <a class="btn btn-info" href="/edit/{{empleado[0]}}">Editar</a>  
+                        <a onclick="return confirm('¿Desea eliminar al empleado?')" class="btn btn-danger" href="/destroy/{{empleado[0]}}">Eliminar</a></td>
+                </tr>
+    
+    
+                {% endfor %}
+    
+            </tbody>
+        </table>
+    </div>
+</div>
+    
+
+{% include 'footer.html' %}
